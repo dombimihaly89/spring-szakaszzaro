@@ -1,9 +1,11 @@
 package hu.flowacademy.musicstore.services;
 
+import hu.flowacademy.musicstore.exceptions.ValidationException;
 import hu.flowacademy.musicstore.models.Album;
 import hu.flowacademy.musicstore.models.DTOs.AlbumDTO;
 import hu.flowacademy.musicstore.repositories.AlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.websocket.server.ServerEndpoint;
@@ -24,6 +26,12 @@ public class AlbumService {
     }
 
     public Album addAlbum(AlbumDTO albumDTO) {
+        if (albumDTO.getTitle() == "" || albumDTO.getTitle() == null) {
+            throw new ValidationException("Title cannot be empty");
+        }
+        if (albumDTO.getCount() <= 0) {
+            throw new ValidationException("Count has to be bigger than 0");
+        }
         Album album = albumDTO.toEntity();
         return albumRepository.save(album);
     }
