@@ -30,6 +30,11 @@ public class ArtistService {
         return artistRepository.save(artist);
     }
 
+    public Artist updateArtist(ArtistDTO artistDTO) {
+        Artist artist = artistDTO.toEntity();
+        return artistRepository.save(artist);
+    }
+
     public void deleteArtist(Long id) {
         artistRepository.deleteById(id);
     }

@@ -42,6 +42,13 @@ public class ArtistController {
         return artistDTO1;
     }
 
+    @PutMapping
+    ArtistDTO updateArtist(@RequestBody ArtistDTO artistDTO) {
+        Artist artist = artistService.updateArtist(artistDTO);
+        ArtistDTO artistDTO1 = new ArtistDTO(artist);
+        return artistDTO1;
+    }
+
     @DeleteMapping("/{id}")
     void deleteAlbum(@PathVariable Long id) {
         artistService.deleteArtist(id);

@@ -39,6 +39,13 @@ public class SongService {
         return songRepository.save(song);
     }
 
+    public Song updateSong(SongDTO songDTO) {
+        Song song = songDTO.toEntity();
+        song.setArtist(artistService.findById(songDTO.getArtistId()));
+        song.setAlbum(albumService.findById(songDTO.getAlbumId()));
+        return songRepository.save(song);
+    }
+
     public void deleteSong(Long id) {
         songRepository.deleteById(id);
     }

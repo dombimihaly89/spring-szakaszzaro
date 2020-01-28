@@ -42,6 +42,14 @@ public class SongController {
         return songDTO1;
     }
 
+    @PutMapping
+    SongDTO updateSong(@RequestBody SongDTO songDTO) {
+        Song song = songService.updateSong(songDTO);
+        SongDTO songDTO1 = new SongDTO(song);
+        return songDTO1;
+    }
+
+
     @DeleteMapping("/{id}")
     void deleteSong(@PathVariable Long id) {
         songService.deleteSong(id);

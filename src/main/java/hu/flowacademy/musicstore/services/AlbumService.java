@@ -31,4 +31,9 @@ public class AlbumService {
     public void deleteAlbum(Long id) {
         albumRepository.deleteById(id);
     }
+
+    public Album updateAlbum(AlbumDTO albumDTO) {
+        Album album = albumDTO.toEntity();
+        return albumRepository.save(album);
+    }
 }

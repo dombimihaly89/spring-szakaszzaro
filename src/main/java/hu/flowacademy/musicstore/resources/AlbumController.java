@@ -40,6 +40,14 @@ public class AlbumController {
         return albumDTO1;
     }
 
+    @PutMapping
+    AlbumDTO updateAlbum(@RequestBody AlbumDTO albumDTO) {
+        Album album = albumService.updateAlbum(albumDTO);
+        AlbumDTO albumDTO1 = new AlbumDTO(album);
+        return albumDTO1;
+    }
+
+
     @DeleteMapping("/{id}")
     void deleteAlbum(@PathVariable Long id) {
         albumService.deleteAlbum(id);
