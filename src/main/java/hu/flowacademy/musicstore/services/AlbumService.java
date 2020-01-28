@@ -26,12 +26,8 @@ public class AlbumService {
     }
 
     public Album addAlbum(AlbumDTO albumDTO) {
-        if (albumDTO.getTitle() == "" || albumDTO.getTitle() == null) {
-            throw new ValidationException("Title cannot be empty");
-        }
-        if (albumDTO.getCount() <= 0) {
-            throw new ValidationException("Count has to be bigger than 0");
-        }
+        titleValidation(albumDTO);
+        countValidation(albumDTO);
         Album album = albumDTO.toEntity();
         return albumRepository.save(album);
     }
@@ -41,7 +37,21 @@ public class AlbumService {
     }
 
     public Album updateAlbum(AlbumDTO albumDTO) {
+        titleValidation(albumDTO);
+        countValidation(albumDTO);
         Album album = albumDTO.toEntity();
         return albumRepository.save(album);
+    }
+
+    public void titleValidation(AlbumDTO albumDTO) {
+        if (albumDTO.getTitle() == "" || albumDTO.getTitle() == null) {
+            throw new ValidationException("Title cannot be empty");
+        }
+    }
+
+    public void countValidation(AlbumDTO albumDTO) {
+        if (albumDTO.getCount() <= 0) {
+            throw new ValidationException("Count has to be bigger than 0");
+        }
     }
 }
