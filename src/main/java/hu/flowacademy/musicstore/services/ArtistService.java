@@ -1,5 +1,6 @@
 package hu.flowacademy.musicstore.services;
 
+import hu.flowacademy.musicstore.exceptions.ValidationException;
 import hu.flowacademy.musicstore.models.Album;
 import hu.flowacademy.musicstore.models.Artist;
 import hu.flowacademy.musicstore.models.DTOs.AlbumDTO;
@@ -26,16 +27,32 @@ public class ArtistService {
     }
 
     public Artist addArtist(ArtistDTO artistDTO) {
+        firstNameValidation(artistDTO);
+        lastNameValidation(artistDTO);
         Artist artist = artistDTO.toEntity();
         return artistRepository.save(artist);
     }
 
     public Artist updateArtist(ArtistDTO artistDTO) {
+        firstNameValidation(artistDTO);
+        lastNameValidation(artistDTO);
         Artist artist = artistDTO.toEntity();
         return artistRepository.save(artist);
     }
 
     public void deleteArtist(Long id) {
         artistRepository.deleteById(id);
+    }
+
+    public void firstNameValidation(ArtistDTO artistDTO) {
+        if (artistDTO.getFirstName() == "" || artistDTO.getFirstName() == null) {
+            throw new ValidationException("Firstname cannot be empty");
+        }
+    }
+
+    public void lastNameValidation(ArtistDTO artistDTO) {
+        if (artistDTO.getLastName() == "" || artistDTO.getLastName() == null) {
+            throw new ValidationException("Lastname cannot be empty");
+        }
     }
 }
